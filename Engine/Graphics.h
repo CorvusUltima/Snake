@@ -25,6 +25,7 @@
 #include "ChiliException.h"
 #include "Colors.h"
 #include "Vec2.h"
+#include"RectI.h"
 
 class Graphics
 {
@@ -63,7 +64,12 @@ public:
 	{
 		DrawRect(x0, y0, x0 + width, y0 + height, c);
 	}
+	
 	void DrawRectEmpty(int x, int y, int width, int height, int thickness, Color c);
+
+	void DrawRect(const RectI& rect, Color c);
+	
+
 	void DrawCircle(int x, int y, int r, Color c);
 	void DrawCircleEmpty(int x, int y, int r, Color c);
 	void DrawLine(const Vec2& firstPos, const Vec2& secondPos, Color c);

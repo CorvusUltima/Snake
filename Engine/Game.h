@@ -27,6 +27,7 @@
 #include "rng.h"
 #include "FrameTimer.h"
 #include "Vec2.h"
+#include"Snake.h"
 
 class Game
 {
@@ -48,5 +49,7 @@ private:
 	/*  User Variables              */
     FrameTimer ft;
 	/********************************/
-	int test; 
+	Board brd;
+	Snake snek;
+	
 };

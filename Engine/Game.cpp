@@ -24,7 +24,9 @@
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
-	gfx( wnd )
+	gfx( wnd ),
+	brd(RectI(Vec2(50.0f,50.0f),100,100))
+	
 {
 }
 
@@ -38,9 +40,12 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	snek.Update(wnd.kbd,brd);
 }
 
 void Game::ComposeFrame()
 {
+	brd.Draw(gfx);
+	snek.Draw(gfx,brd);
 }
 
