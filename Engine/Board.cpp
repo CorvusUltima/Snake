@@ -23,8 +23,8 @@ void Board::Tile::Draw(Graphics& gfx)
 	case  Type::food:
 			gfx.DrawRect(rect.left,
 				rect.top,
-				Board::TILE_SIZE,
-				Board::TILE_SIZE,
+				rect.left+Board::TILE_SIZE,
+				rect.top+Board::TILE_SIZE,
 			    Colors::Green);
 			break;
 	}
@@ -61,9 +61,9 @@ Board::Board(RectI field)
 			field.top + (i / width)* TILE_SIZE,
 			field.top + (i / width) * TILE_SIZE + TILE_SIZE) 
 		};
-		
-
 	}
+	
+	
 
 }
 
@@ -78,6 +78,12 @@ void Board::Draw(Graphics&gfx)
 		tiles[i].Draw(gfx);
 	}
 }
+
+void Board::Update()
+{
+	tiles[10].SpawnObject(Tile::Type::food);
+}
+
 
 Vec2 Board::Board2Screen(const Vec2& pos, Board& brd)
 {

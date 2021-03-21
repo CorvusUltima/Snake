@@ -2,6 +2,7 @@
 #include "RectI.h"
 #include"Vec2.h"
 #include"Graphics.h"
+#include"rng.h"
 
 
 class Board
@@ -26,8 +27,10 @@ private:
 
 		Tile() = default;
 		Tile(RectI rect);
+
 		void Draw(Graphics& gfx);
 		void SpawnObject(Type object_type);
+
 		RectI getRect();
 
 
@@ -43,7 +46,10 @@ public:
 	
 	Board(RectI field);
 	void Draw(Graphics& gfx);
-	static Vec2 Board2Screen(const Vec2& pos,Board& brd);
+	void Update();
+
+
+   static Vec2 Board2Screen(const Vec2& pos,Board& brd);
 	
 
    static int GetTileSize();
