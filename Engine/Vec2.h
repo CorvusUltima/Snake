@@ -3,7 +3,7 @@ class Vec2
 {
 public:
 	Vec2() = default;
-	Vec2(float in_x, float in_y);
+	Vec2(int in_x, int in_y);
 	Vec2 operator+ (const Vec2& rhs) const;
 	Vec2& operator+= (const Vec2& rhs);
 	Vec2 operator* (float rhs) const;
@@ -15,7 +15,7 @@ public:
 	Vec2& Normalize();
 	Vec2 GetNormalized() const;
 
-	float x;
-	float y;
+	int x;
+	int y;
 };
 

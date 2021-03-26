@@ -48,6 +48,11 @@ RectI Board::Tile::getRect()
 	return rect;
 }
 
+Board::Tile::Type Board::Tile::getType()
+{
+	return eType;
+}
+
 Board::Board(RectI field)
 	:
 	field(field)
@@ -81,7 +86,18 @@ void Board::Draw(Graphics&gfx)
 
 void Board::Update()
 {
-	tiles[10].SpawnObject(Tile::Type::food);
+	tileAt(Vec2(0, 0)).SpawnObject(Tile::Type::food);
+}
+
+bool Board::bIsFood(Tile& tile)
+{
+	return tile.getType()==Tile::Type::food;
+}
+
+
+Board::Tile& Board::tileAt(Vec2& pos)
+{	
+	return tiles[pos.y * width + pos.x];
 }
 
 

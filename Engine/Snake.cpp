@@ -26,12 +26,16 @@ Vec2 Snake::Segment::GetOldPos()const
 	return old_pos;
 }
 
+Vec2 Snake::Segment::GetPos()
+{
+	return pos;
+}
+
 
 Snake::Segment::Segment(Vec2 pos)
 	:
 	pos(pos)
 {
-
 }
 
 
@@ -60,10 +64,9 @@ void Snake::Update(Keyboard& kbd, Board& brd)
 {
 
 	
+	ProcesConsuption(brd);
 
-
-
-	timer += dt.Mark();
+	timer += dt.Mark()*2;
 	
 	if (kbd.KeyIsPressed(VK_LEFT)|| kbd.KeyIsPressed('A')&&vel.x!=1)
 	{
@@ -90,18 +93,23 @@ void Snake::Update(Keyboard& kbd, Board& brd)
 		{
 			segments[i].Folow(segments[i-1].GetOldPos());
 		}
-	
 		timer = 0;
 
 	}
-
-
-
-
-
-
-   
+  
 }
+
+void Snake::ProcesConsuption(Board& brd)
+{
+	
+	if (brd.bIsFood(brd.tileAt(segments[0].GetPos())))
+	{
+		Grow();
+	}
+	
+
+}
+
 
 void Snake::Grow()
 {

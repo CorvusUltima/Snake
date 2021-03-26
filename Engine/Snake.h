@@ -19,12 +19,14 @@ private:
 		void Move(Vec2 vec, Board& brd);
 		void Folow(Vec2 old_pos_other);
 		Vec2 GetOldPos() const;
+		Vec2 GetPos();
 
 
 
 	private:
 		Vec2 pos;
 		Vec2 old_pos=pos;
+		
 	};
 
 
@@ -37,12 +39,9 @@ public:
 	
 	void Draw(Graphics& gfx,Board& brd);
 	void Update(Keyboard& kbd, Board& brd );
+	void ProcesConsuption(Board& brd);
 	void Grow();
 	
-
-
-	
-
 
 private:
 
@@ -51,7 +50,7 @@ private:
    float timer = 0;
    Vec2 start_pos = {int(Board::Get_width()/2),int(Board::Get_height()/2)};
    const static int nSEGMENT_MAX=100;
-   int  nSegments_currant = 15;
+   int  nSegments_currant = 3;
    Segment segments[nSEGMENT_MAX];
 
 

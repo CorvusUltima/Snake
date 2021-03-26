@@ -75,7 +75,7 @@ public:
 	void DrawLine(const Vec2& firstPos, const Vec2& secondPos, Color c);
 	void DrawLine(int x0, int y0, int x1, int y1, Color c)
 	{
-		DrawLine({ (float)x0, (float)y0 }, { (float)x1, (float)y1 }, c);
+		DrawLine({ x0, y0 }, { x1, y1 }, c);
 	}
 	~Graphics();
 private:
