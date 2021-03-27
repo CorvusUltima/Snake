@@ -70,13 +70,13 @@ void Snake::Update(Keyboard& kbd, Board& brd)
 {
 	for (int i = 1; i < nSegments_currant; i++)
 	{
-		bIsDeath = isColiding(segments[0].GetPos(),segments[i].GetPos());
+		Coliding(segments[0].GetPos(),segments[i].GetPos());
 	}
 	
 		ProcesConsuption(brd);
 		if (!bIsDeath)
 		{
-			timer += dt.Mark() * 5;
+			timer += dt.Mark() * speed;
 
 			if (kbd.KeyIsPressed(VK_LEFT) || kbd.KeyIsPressed('A') && vel.x != 1)
 			{
@@ -143,8 +143,12 @@ void Snake::ProcesConsuption(Board& brd)
 	   brd.restartTile(brd.tileAt(segments[0].GetPos()));
 
 	}
-	
-	
+	if (brd.IsPoison(brd.tileAt(segments[0].GetPos())))
+	{
+
+		brd.restartTile(brd.tileAt(segments[0].GetPos()));
+		speed++;
+	}
 
 }
 
@@ -155,10 +159,29 @@ void Snake::Grow()
 	++nSegments_currant;
 }
 
-bool Snake::isColiding(Vec2 pos, Vec2 pos2)
+void  Snake::Coliding(Vec2 pos, Vec2 pos2)
 {
-	return (pos.x == pos2.x && pos.y == pos2.y);
+	if (pos.x == pos2.x && pos.y == pos2.y)
+	{
+		bIsDeath = true;
+	}
 	
+}
+
+bool Snake::GetbIsDead()
+{
+	return bIsDeath;
+}
+
+void Snake::RestartGame(Board& brd)
+{
+	
+	segments[0].SetPos(start_pos);
+	int  nSegments_currant = 1;
+	int speed =3;
+	bool bIsDeath = false;
+	brd.RestartBoard();
+
 }
 
 

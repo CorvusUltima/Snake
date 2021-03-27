@@ -41,6 +41,10 @@ void Game::Go()
 void Game::UpdateModel()
 {
 	snek.Update(wnd.kbd,brd);
+	if (snek.GetbIsDead() == true && wnd.kbd.KeyIsPressed(VK_SPACE))
+	{
+		snek.RestartGame(brd);
+	}
 }
 
 void Game::ComposeFrame()

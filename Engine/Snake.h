@@ -34,7 +34,9 @@ public:
 	void Update(Keyboard& kbd, Board& brd );
 	void ProcesConsuption(Board& brd);
 	void Grow();	
-	bool isColiding(Vec2 pos ,Vec2 pos2);
+	void Coliding(Vec2 pos ,Vec2 pos2);
+	bool GetbIsDead();
+	void RestartGame(Board& brd);
 
 private:
 
@@ -44,6 +46,7 @@ private:
    Vec2 start_pos = {int(Board::Get_width()/2),int(Board::Get_height()/2)};
    const static int nSEGMENT_MAX=100;
    int  nSegments_currant = 1;
+   int speed =2;
    Segment segments[nSEGMENT_MAX];
    bool bIsDeath = false;
 

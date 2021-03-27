@@ -46,8 +46,10 @@ public:
 	void Draw(Graphics& gfx);
 	
 	bool IsFood(Tile& tile);
+	bool IsPoison(Tile& tile);
 	Tile& tileAt(Vec2& pos);
 	void restartTile(Tile& tile);
+	void RestartBoard();
 
    static Vec2 Board2Screen(const Vec2& pos,Board& brd);
    static int GetTileSize();
@@ -61,7 +63,8 @@ private:
 	RectI field;
 	static constexpr int TILE_SIZE =15;
 	const static  int width = 30;
-	const static  int height = 30; 
+	const static  int height = 30;
+	const static int nPoison = 30;
 	const static  int nTILES_MAX = height * width;
 	Tile tiles[nTILES_MAX];
 

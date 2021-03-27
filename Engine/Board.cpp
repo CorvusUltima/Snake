@@ -21,14 +21,22 @@ void Board::Tile::Draw(Graphics& gfx)
 			1, Colors::Black);
 		
 		break;
+
 	case  Type::food:
 			gfx.DrawRect(rect.left,
 				rect.top,
 				rect.left+Board::TILE_SIZE,
 				rect.top+Board::TILE_SIZE,
 			    Colors::Green);
-		
 			break;
+
+	case  Type::poison:
+		gfx.DrawRect(rect.left,
+			rect.top,
+			rect.left + Board::TILE_SIZE,
+			rect.top + Board::TILE_SIZE,
+			Colors::Magenta);
+
 	}
 	
 	
@@ -79,6 +87,14 @@ Board::Board(RectI field)
 	
 	int random = rng::rdm_int(0, nTILES_MAX);
 	tiles[random].SpawnObject(Tile::Type::food);
+	for (int i = 0; i < nPoison; i++)
+	{
+		int random = rng::rdm_int(0, nTILES_MAX);
+		
+		if (tiles[random].getType() == Tile::Type::empty) tiles[random].SpawnObject(Tile::Type::poison);
+		else i--;
+
+	}
 	
 
 }
@@ -98,6 +114,11 @@ bool Board::IsFood(Tile& tile)
 	return tile.getType()==Tile::Type::food;
 }
 
+bool Board::IsPoison(Tile& tile)
+{
+	return  tile.getType() == Tile::Type::poison;
+}
+
 Board::Tile& Board::tileAt(Vec2& pos)
 {	
 	return tiles[pos.y * width + pos.x];
@@ -105,9 +126,30 @@ Board::Tile& Board::tileAt(Vec2& pos)
 
 void Board::restartTile(Tile& tile)
 {
-	tile.SetEmpty(tile);
-	int rand = rng::rdm_int(0, nTILES_MAX);
-	tiles[rand].SpawnObject(Tile::Type::food);
+	if (tile.getType() == Tile::Type::food)
+	{
+		tile.SetEmpty(tile);
+		int rand = rng::rdm_int(0, nTILES_MAX);
+		tiles[rand].SpawnObject(Tile::Type::food);
+	}
+
+	else if (tile.getType() == Tile::Type::poison)
+	{
+		tile.SetEmpty(tile);
+	}
+	
+}
+
+void Board::RestartBoard()
+{
+	for (int i = 0; i < nPoison; i++)
+	{
+		int random = rng::rdm_int(0, nTILES_MAX);
+
+		if (tiles[random].getType() == Tile::Type::empty) tiles[random].SpawnObject(Tile::Type::poison);
+		else i--;
+
+	}
 }
 
 
