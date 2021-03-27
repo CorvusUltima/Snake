@@ -46,7 +46,6 @@ void Game::UpdateModel()
 void Game::ComposeFrame()
 {
 	brd.Draw(gfx);
-	brd.Update();
 	snek.Draw(gfx,brd);
 }
 

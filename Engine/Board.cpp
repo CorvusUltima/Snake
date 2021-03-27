@@ -19,6 +19,7 @@ void Board::Tile::Draw(Graphics& gfx)
 			Board::TILE_SIZE,
 			Board::TILE_SIZE,
 			1, Colors::Green);
+		
 		break;
 	case  Type::food:
 			gfx.DrawRect(rect.left,
@@ -26,6 +27,7 @@ void Board::Tile::Draw(Graphics& gfx)
 				rect.left+Board::TILE_SIZE,
 				rect.top+Board::TILE_SIZE,
 			    Colors::Green);
+		
 			break;
 	}
 	
@@ -42,6 +44,12 @@ void Board::Tile::SpawnObject(Type object_type)
 	
 }
 
+void Board::Tile::SetEmpty(Tile& tile)
+{
+	tile.eType = Type::empty;
+}
+
+
 
 RectI Board::Tile::getRect()
 {
@@ -52,6 +60,7 @@ Board::Tile::Type Board::Tile::getType()
 {
 	return eType;
 }
+
 
 Board::Board(RectI field)
 	:
@@ -68,14 +77,15 @@ Board::Board(RectI field)
 		};
 	}
 	
+	int random = rng::rdm_int(0, nTILES_MAX);
+	
+	tiles[random].SpawnObject(Tile::Type::food);
 	
 
 }
 
 void Board::Draw(Graphics&gfx)
-
 {
-
 	gfx.DrawRectEmpty(field.left, field.top,  (width * TILE_SIZE),(height * TILE_SIZE), 2, Colors::White);
 	
 	for (int i = 0; i < nTILES_MAX; i++)
@@ -84,20 +94,21 @@ void Board::Draw(Graphics&gfx)
 	}
 }
 
-void Board::Update()
-{
-	tileAt(Vec2(0, 0)).SpawnObject(Tile::Type::food);
-}
-
-bool Board::bIsFood(Tile& tile)
+bool Board::IsFood(Tile& tile)
 {
 	return tile.getType()==Tile::Type::food;
 }
 
-
 Board::Tile& Board::tileAt(Vec2& pos)
 {	
 	return tiles[pos.y * width + pos.x];
+}
+
+void Board::restartTile(Tile& tile)
+{
+	tile.SetEmpty(tile);
+	int rand = rng::rdm_int(0, nTILES_MAX);
+	tiles[rand].SpawnObject(Tile::Type::food);
 }
 
 

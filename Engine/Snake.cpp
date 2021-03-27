@@ -66,7 +66,7 @@ void Snake::Update(Keyboard& kbd, Board& brd)
 	
 	ProcesConsuption(brd);
 
-	timer += dt.Mark()*2;
+	timer += dt.Mark()*5;
 	
 	if (kbd.KeyIsPressed(VK_LEFT)|| kbd.KeyIsPressed('A')&&vel.x!=1)
 	{
@@ -102,10 +102,14 @@ void Snake::Update(Keyboard& kbd, Board& brd)
 void Snake::ProcesConsuption(Board& brd)
 {
 	
-	if (brd.bIsFood(brd.tileAt(segments[0].GetPos())))
-	{
-		Grow();
+	if (brd.IsFood(brd.tileAt(segments[0].GetPos())))
+	{	
+
+	   Grow();
+	   brd.restartTile(brd.tileAt(segments[0].GetPos()));
+
 	}
+	
 	
 
 }

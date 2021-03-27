@@ -12,7 +12,6 @@ private:
 		
 	public:
 
-
 		Segment() = default;
 		Segment(Vec2 pos);
 		void Draw(Graphics& gfx, Board& brd);
@@ -21,27 +20,19 @@ private:
 		Vec2 GetOldPos() const;
 		Vec2 GetPos();
 
-
-
 	private:
 		Vec2 pos;
 		Vec2 old_pos=pos;
-		
 	};
-
-
 
 public:
 
-	
 	Snake();
-	
 	
 	void Draw(Graphics& gfx,Board& brd);
 	void Update(Keyboard& kbd, Board& brd );
 	void ProcesConsuption(Board& brd);
-	void Grow();
-	
+	void Grow();	
 
 private:
 
@@ -52,9 +43,6 @@ private:
    const static int nSEGMENT_MAX=100;
    int  nSegments_currant = 3;
    Segment segments[nSEGMENT_MAX];
-
-
-
 
 };
 

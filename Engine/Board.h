@@ -28,37 +28,31 @@ private:
 		Tile(RectI rect);
 		void Draw(Graphics& gfx);
 		void SpawnObject(Type object_type);
+		void SetEmpty(Tile& tile);
 		RectI getRect();
 		Type  getType();
-
-
+		
 	private:
 
 		RectI rect;
 		Type eType;
+		
 
 	};
 
 public:
 
-
-	
 	Board(RectI field);
 	void Draw(Graphics& gfx);
-	void Update();
-	bool bIsFood(Tile& tile);
-	Tile& tileAt(Vec2& pos);
 	
-
-
+	bool IsFood(Tile& tile);
+	Tile& tileAt(Vec2& pos);
+	void restartTile(Tile& tile);
 
    static Vec2 Board2Screen(const Vec2& pos,Board& brd);
    static int GetTileSize();
    static int Get_width();
    static int Get_height();
-
-  
-
 
 private:
 
@@ -68,6 +62,5 @@ private:
 	const static  int height = 30; 
 	const static  int nTILES_MAX = height * width;
 	Tile tiles[nTILES_MAX];
-
 
 };
