@@ -18,7 +18,7 @@ void Board::Tile::Draw(Graphics& gfx)
 			rect.top,
 			Board::TILE_SIZE,
 			Board::TILE_SIZE,
-			1, Colors::Green);
+			1, Colors::Black);
 		
 		break;
 	case  Type::food:
@@ -78,7 +78,6 @@ Board::Board(RectI field)
 	}
 	
 	int random = rng::rdm_int(0, nTILES_MAX);
-	
 	tiles[random].SpawnObject(Tile::Type::food);
 	
 
@@ -124,7 +123,7 @@ Vec2 Board::Board2Screen(const Vec2& pos, Board& brd)
 	return TILE_SIZE;
 }
 
- int Board::Get_width()
+int Board::Get_width()
  {
 	 return width;
  }
@@ -132,6 +131,11 @@ Vec2 Board::Board2Screen(const Vec2& pos, Board& brd)
  int Board::Get_height()
  {
 	 return height;
+ }
+
+ RectI Board::GetField()const
+ {
+	 return field;
  }
 
  

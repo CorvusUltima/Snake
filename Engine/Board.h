@@ -53,6 +53,8 @@ public:
    static int GetTileSize();
    static int Get_width();
    static int Get_height();
+   
+   RectI GetField()const;
 
 private:
 

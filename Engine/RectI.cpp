@@ -29,3 +29,8 @@ bool RectI::isOverLappingWith(const RectI& other) const
 
 	
 }
+
+bool RectI::isContaining(const Vec2& point) const
+{
+	 return point.x > left && point.x < right&& point.y > top && point.y < bottom;
+}
