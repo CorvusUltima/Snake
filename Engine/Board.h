@@ -42,7 +42,9 @@ private:
 
 public:
 
-	Board(RectI field);
+	Board(RectI field,int width,int height,int nPoison);
+	~Board();
+
 	void Draw(Graphics& gfx);
 	
 	bool IsFood(Tile& tile);
@@ -52,9 +54,10 @@ public:
 	void RestartBoard();
 
    static Vec2 Board2Screen(const Vec2& pos,Board& brd);
-   static int GetTileSize();
-   static int Get_width();
-   static int Get_height();
+   static Vec2 Board2Screen(const Vec2& pos, Board* pBrd);
+   static constexpr int GetTileSize();
+    int Get_width();
+    int Get_height();
    
    RectI GetField()const;
 
@@ -62,10 +65,10 @@ private:
 
 	RectI field;
 	static constexpr int TILE_SIZE =15;
-	const static  int width = 30;
-	const static  int height = 30;
-	const static int nPoison = 30;
-	const static  int nTILES_MAX = height * width;
-	Tile tiles[nTILES_MAX];
+	int width;
+	int height;
+	int nPoison;
+	int nTILES_MAX = height * width;
+	Tile* tiles= nullptr;
 
 };

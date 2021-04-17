@@ -70,9 +70,13 @@ Board::Tile::Type Board::Tile::getType()
 }
 
 
-Board::Board(RectI field)
+Board::Board(RectI field, int width, int height, int nPoison)
 	:
-	field(field)
+	width(width),
+	height(height),
+	field(field),
+	tiles(new Tile[width*height]),
+	nPoison(nPoison)
 {
 
 	for (int i = 0; i < nTILES_MAX;i++)
@@ -97,6 +101,11 @@ Board::Board(RectI field)
 	}
 	
 
+}
+
+Board::~Board()
+{
+	delete[] tiles;
 }
 
 void Board::Draw(Graphics&gfx)
@@ -160,10 +169,19 @@ Vec2 Board::Board2Screen(const Vec2& pos, Board& brd)
 	);
 }
 
- int Board::GetTileSize()
+Vec2 Board::Board2Screen(const Vec2& pos, Board* pBrd)
+{
+	return Vec2(pBrd->field.left + GetTileSize() * pos.x,
+		pBrd->field.top + GetTileSize() * pos.y
+	);
+}
+
+constexpr int Board::GetTileSize()
 {
 	return TILE_SIZE;
 }
+
+ 
 
 int Board::Get_width()
  {

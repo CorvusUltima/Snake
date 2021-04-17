@@ -1,13 +1,13 @@
 #include "Snake.h"
 
-void Snake::Segment::Draw(Graphics& gfx, Board& brd,Color c)
+void Snake::Segment::Draw(Graphics& gfx, Board* pBrd,Color c)
 {
-	const Vec2 drawpos = Board::Board2Screen(pos,brd);
+	const Vec2 drawpos = Board::Board2Screen(pos, pBrd);
 
 	gfx.DrawRectDim(drawpos.x,drawpos.y, Board::GetTileSize(),  Board::GetTileSize(),c);
 }
 
-void Snake::Segment::Move(Vec2 vec,Board& brd)
+void Snake::Segment::Move(Vec2 vec,Board* pBrd)
 {
 	Vec2 temp = pos;
 	pos += vec;
@@ -46,34 +46,38 @@ Snake::Segment::Segment(Vec2 pos)
 
 
 
-Snake::Snake()
+Snake::Snake(Board* pBrd, int nSegments_currant)
+:
+pBrd(pBrd),
+nSegments_currant(nSegments_currant),
+segments(new Segment[nSegment_max])
+
 {
 	segments[0] = { start_pos };
-	
 }
 	
 
 
-void Snake::Draw(Graphics& gfx, Board& brd)
+void Snake::Draw(Graphics& gfx, Board* pBrd)
 {
 	
-	segments[0].Draw(gfx, brd, Colors::Red);
+	segments[0].Draw(gfx, pBrd, Colors::Red);
 	
 	for (int i = 1; i < nSegments_currant; i++)
 	{
-		segments[i].Draw(gfx,brd,Colors::Blue);
+		segments[i].Draw(gfx, pBrd,Colors::Blue);
 	}
 }
 
 
-void Snake::Update(Keyboard& kbd, Board& brd)
+void Snake::Update(Keyboard& kbd, Board* pBrd)
 {
 	for (int i = 1; i < nSegments_currant; i++)
 	{
 		Coliding(segments[0].GetPos(),segments[i].GetPos());
 	}
 	
-		ProcesConsuption(brd);
+		ProcesConsuption(pBrd);
 		if (!bIsDeath)
 		{
 			timer += dt.Mark() * speed;
@@ -98,8 +102,8 @@ void Snake::Update(Keyboard& kbd, Board& brd)
 		}
 		if (timer >= 1.0f)
 		{
-			if(segments[0].GetPos().y+vel.y < 0 || segments[0].GetPos().y+vel.y > Board::Get_height()-1 ||
-				segments[0].GetPos().x+vel.x < 0 || segments[0].GetPos().x+vel.x > Board::Get_width()-1
+			if(segments[0].GetPos().y+vel.y < 0 || segments[0].GetPos().y+vel.y >pBrd->Get_height()-1 ||
+				segments[0].GetPos().x+vel.x < 0 || segments[0].GetPos().x+vel.x >pBrd->Get_width()-1
 			)
 			{
 				bIsDeath =true;
@@ -109,7 +113,7 @@ void Snake::Update(Keyboard& kbd, Board& brd)
 			
 			if (!bIsDeath)
 			{
-				segments[0].Move(vel, brd);
+				segments[0].Move(vel, pBrd);
 			}
 			
 
@@ -133,20 +137,20 @@ void Snake::Update(Keyboard& kbd, Board& brd)
 
 }
 
-void Snake::ProcesConsuption(Board& brd)
+void Snake::ProcesConsuption(Board *pBrd)
 {
 	
-	if (brd.IsFood(brd.tileAt(segments[0].GetPos())))
+	if (pBrd->IsFood(pBrd->tileAt(segments[0].GetPos())))
 	{	
 
 	   Grow();
-	   brd.restartTile(brd.tileAt(segments[0].GetPos()));
+	   pBrd->restartTile(pBrd->tileAt(segments[0].GetPos()));
 
 	}
-	if (brd.IsPoison(brd.tileAt(segments[0].GetPos())))
+	if (pBrd->IsPoison(pBrd->tileAt(segments[0].GetPos())))
 	{
 
-		brd.restartTile(brd.tileAt(segments[0].GetPos()));
+		pBrd->restartTile(pBrd->tileAt(segments[0].GetPos()));
 		speed++;
 	}
 

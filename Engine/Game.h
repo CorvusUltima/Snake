@@ -28,6 +28,8 @@
 #include "FrameTimer.h"
 #include "Vec2.h"
 #include"Snake.h"
+#include"assert.h"
+#include"txtManipulation.h"
 
 class Game
 {
@@ -35,12 +37,14 @@ public:
 	Game( class MainWindow& wnd );
 	Game( const Game& ) = delete;
 	Game& operator=( const Game& ) = delete;
+	~Game();
 	void Go();
 private:
 	void ComposeFrame();
 	void UpdateModel();
+	void DestroyBoard();
 	/********************************/
-	/*  User Functions              */
+	/*  User Functions        */
 	/********************************/
 private:
 	MainWindow& wnd;
@@ -49,7 +53,15 @@ private:
 	/*  User Variables              */
     FrameTimer ft;
 	/********************************/
-	Board brd;
-	Snake snek;
+	Board* brd = nullptr;
+	Snake* snake = nullptr;
+	txtManipulation  txt;
+	std::string string_width = txt.get_substring("SnakeGame.txt", "BOARD WIDTH", "BOARD HEIGHT");
+	std::string string_width_number = txt.remove_all_non_numberCH(string_width);
+
+	int width = std::stoi(string_width_number);//ok this is not working.... great let do this 
+	int hight = std::stoi(txt.remove_all_non_numberCH ( txt.get_substring("SnakeGame.txt", "BOARD HEIGHT", "POISON")));
+	int nPoison=3;
+	
 	
 };

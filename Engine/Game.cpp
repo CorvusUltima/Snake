@@ -24,10 +24,16 @@
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
-	gfx( wnd ),
-	brd(RectI(Vec2(50.0f,50.0f),100,100))
+	gfx( wnd )
 	
 {
+	brd = new Board(RectI(Vec2(50.0f, 50.0f), 100, 100), width, hight, nPoison);
+	snake = new Snake(brd, 5);
+}
+
+Game::~Game()
+{
+	DestroyBoard();
 }
 
 void Game::Go()
@@ -40,16 +46,29 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-	snek.Update(wnd.kbd,brd);
-	if (snek.GetbIsDead() == true && wnd.kbd.KeyIsPressed(VK_SPACE))
+	snake->Update(wnd.kbd,brd);
+	if (snake->GetbIsDead() == true && wnd.kbd.KeyIsPressed(VK_SPACE))
 	{
-		snek.RestartGame(brd);
+		;
 	}
+	
+	
+}
+
+
+
+void Game::DestroyBoard()
+{
+	delete brd;
+	brd = nullptr;
 }
 
 void Game::ComposeFrame()
 {
-	brd.Draw(gfx);
-	snek.Draw(gfx,brd);
+	brd->Draw(gfx);
+
+	snake->Draw(gfx,brd);
+	
+
 }
 
