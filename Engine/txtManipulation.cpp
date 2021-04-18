@@ -40,6 +40,48 @@ std::string txtManipulation::get_substring(const char* filename, std::string sta
     return strNew;
 }
 
+std::string txtManipulation::get_substring(const char* filename, std::string start_pos, int number)
+{
+
+    bool isNumber = false;
+    int  nNumberOcurances =1;
+    std::string newStr;
+
+    
+    std::string orginal_string = Txt_To_String(filename);//extracting file to a string 
+    size_t  first = orginal_string.find(start_pos);
+    
+    
+    for (int i = first + start_pos.length(); i < orginal_string.length(); i++)
+    {
+           
+        if (orginal_string.at(i) == std::string::npos)
+        {
+            break;
+        }
+        
+        if (orginal_string.at(i) >= '0' && orginal_string.at(i) <= '9')
+        {
+            isNumber = true;
+            
+        }
+
+        else  if (isNumber && orginal_string.at(i)< '0'|| isNumber && orginal_string.at(i) >= '9')
+        {
+            isNumber = false;
+            nNumberOcurances++;
+        }
+
+       if (isNumber && nNumberOcurances == number)
+        {
+            newStr.push_back(orginal_string.at(i));
+        }
+
+    }
+   
+    return newStr;
+}
+
 std::string txtManipulation::remove_all_non_numberCH(std::string original_string)
 {
 

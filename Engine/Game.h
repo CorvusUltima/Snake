@@ -56,12 +56,12 @@ private:
 	Board* brd = nullptr;
 	Snake* snake = nullptr;
 	txtManipulation  txt;
-	std::string string_width = txt.get_substring("SnakeGame.txt", "BOARD WIDTH", "BOARD HEIGHT");
+	std::string string_width = txt.get_substring("SnakeGame.txt", "[BOARD DIMENSION]", 1);
 	std::string string_width_number = txt.remove_all_non_numberCH(string_width);
 
 	int width = std::stoi(string_width_number);//ok this is not working.... great let do this 
-	int hight = std::stoi(txt.remove_all_non_numberCH ( txt.get_substring("SnakeGame.txt", "BOARD HEIGHT", "POISON")));
-	int nPoison=3;
+	int hight = std::stoi(txt.remove_all_non_numberCH ( txt.get_substring("SnakeGame.txt", "[BOARD DIMENSION]", 2)));
+	int nPoison= std::stoi(txt.remove_all_non_numberCH(txt.get_substring("SnakeGame.txt", "[POISON]", 1)));
 	
 	
 };
