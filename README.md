@@ -4,8 +4,10 @@
 * [D&C team](#D&C team)
 * [Setup](#setup)
 
-## General info
-The project is the development of full functional 2d software by D&C team for making small desktop games.
+## General info'
+The game Snake was made with the aim of practicing and testing knowledge as well as the framework in which I am currently working.
+I don't think there is any need to explain the snake itself.
+The project aim  is the development of full functional 2d software by D&C team for making small desktop games.
 
 Game made using D&C software: https://gitlab.com/CorvusUltima/galaxy
 
